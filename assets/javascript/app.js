@@ -1,11 +1,23 @@
 $("#submit").on('click',function(event){
 event.preventDefault();
- var nameinput=$('#name-input').val();
+ var tracknameinput=$('#trackname-input').val();
+ var artistnameinput=$('#artistname-input').val();
+
  //token is like an API key
-var token='BQBosrmUAIijK78zJIC8vInHkizXRVpTP-0gtxYTs-H1OmTfn41ucS7G0n0QQMMWstmubijWg-uu4lzMFlCFiz32bY8Eki1dsso-S7q2jTBE-dtLemsz7Ks-eipf-zsCNBXYo08FAbe-blpbHF2bwxMK8WRUZ9VWSjhCFQ';
+var token='BQAHOw2kY3dgthCsPfH0nnDR6cWzFZtUbpAYNYa-57OuUKu6ZP0Y-e_HRrRweAg3KSVmyWHqZLQ3wtOfkEpvaT7X0QZUCZb6fumBbEa3YPmvKpwnZfcyXEPb6AZCcShuWMxcJmL8Dd9xYwcf1dOAjDpyGwBmjjIygqh4ig';
  //queryURL which can get the track
-var queryURL="https://api.spotify.com/v1/search?q="+nameinput+"&type=track&limit=1";
- console.log(nameinput);
+var queryURL = "https://api.spotify.com/v1/search?q=";
+if(tracknameinput){
+    queryURL +=" track:"+tracknameinput;
+}
+if(artistnameinput){
+    queryURL +=" artist:"+artistnameinput;
+}
+queryURL += "&type=track&limit=1";
+console.log(queryURL);
+// var queryURL="https://api.spotify.com/v1/search?q=+"%20artist:"+artistnameinput+"&type=track&limit=1";
+ console.log(tracknameinput);
+ console.log(artistnameinput);
  $.ajax({
      url:queryURL,
      headers: {
