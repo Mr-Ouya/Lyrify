@@ -1,7 +1,7 @@
 $("#search-track").on('click',function(event){
     event.preventDefault();
     var nameinput=$('#track-name').val();
-    var token='BQAiVTM9DW13pZI5YjdomN_qdnww7a65Y5DWVzCvuJl2uTdaL5Ydy3gCACPYmP4dqnlsWmnqE_nNDgRFCBQUCeuE0ZJSUZChnLfUXAnP6TlDna_nm7lM2EGpJDYW-S8h5Jb9TOJstMgxP48CJ6WK9A';
+    var token='BQA0zijzmlQaUOI8A9ehJxxJuvAjx4nLRLqLXFJnqjuR8NpF1fCys6itGH5OMv4mqDEN1dfqQShtE-pVqUl-z8nYFK1IAG5txgA4oHlqaQczZIecKK3skRy-doULRa6CGHQcO07bPax3JWzNi7OtSQ';
     var queryURL="https://api.spotify.com/v1/search?q="+nameinput+"&type=track&limit=1";
     console.log(nameinput);
     $.ajax({
@@ -11,7 +11,7 @@ $("#search-track").on('click',function(event){
          },
         method:'GET'
     }).then(function(response){
-        var col_1 =  $(' <tr><td>' + "<a href="+response.tracks.items[0].preview_url+">"+nameinput+"</a><img src="+response.tracks.items[0].album.images[2].url+"></td></tr>");
+        var col_1 =  $(' <tr><td>' + "<audio controls><source src="+response.tracks.items[0].preview_url+" type='audio/mpeg'>"+nameinput+"</audio><img src="+response.tracks.items[0].album.images[1].url+"></td></tr>");
         $("#tracks").append(col_1);
         console.log(response)
     })
@@ -20,7 +20,7 @@ $("#search-track").on('click',function(event){
     $("#search-artist").on('click',function(event){
         event.preventDefault();
         var nameinput=$('#artist-name').val();
-        var token='BQAiVTM9DW13pZI5YjdomN_qdnww7a65Y5DWVzCvuJl2uTdaL5Ydy3gCACPYmP4dqnlsWmnqE_nNDgRFCBQUCeuE0ZJSUZChnLfUXAnP6TlDna_nm7lM2EGpJDYW-S8h5Jb9TOJstMgxP48CJ6WK9A';
+        var token='BQA0zijzmlQaUOI8A9ehJxxJuvAjx4nLRLqLXFJnqjuR8NpF1fCys6itGH5OMv4mqDEN1dfqQShtE-pVqUl-z8nYFK1IAG5txgA4oHlqaQczZIecKK3skRy-doULRa6CGHQcO07bPax3JWzNi7OtSQ';
         var queryURL="https://api.spotify.com/v1/search?q="+nameinput+"&type=artist&limit=1";
         console.log(nameinput);
         $.ajax({
