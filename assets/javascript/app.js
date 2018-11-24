@@ -1,7 +1,7 @@
 $("#search-track").on('click',function(event){
     event.preventDefault();
     var nameinput=$('#track-name').val();
-    var token='BQDp-_YQ0EYYwgrD9s-O2Mbu3aSOicrItWXtywqtXV1k0pwAcJAJlOE466UIRj-0LhQeNRvENqdOYHyvnwa6mcfrOBGh5XutXOhNl-Kd4ZwBarAsEAn0914iYUbBQrDT94OV2JyWsGaB8eWYCWVelw';
+    var token='BQAiVTM9DW13pZI5YjdomN_qdnww7a65Y5DWVzCvuJl2uTdaL5Ydy3gCACPYmP4dqnlsWmnqE_nNDgRFCBQUCeuE0ZJSUZChnLfUXAnP6TlDna_nm7lM2EGpJDYW-S8h5Jb9TOJstMgxP48CJ6WK9A';
     var queryURL="https://api.spotify.com/v1/search?q="+nameinput+"&type=track&limit=1";
     console.log(nameinput);
     $.ajax({
@@ -11,14 +11,16 @@ $("#search-track").on('click',function(event){
          },
         method:'GET'
     }).then(function(response){
-    $("#all-display").html("<a href="+response.tracks.items[0].preview_url+">"+nameinput+"</a>");
+        var col_1 =  $(' <tr><td>' + "<a href="+response.tracks.items[0].preview_url+">"+nameinput+"</a><img src="+response.tracks.items[0].album.images[2].url+"></td></tr>");
+        $("#tracks").append(col_1);
+        console.log(response)
     })
     })
 
     $("#search-artist").on('click',function(event){
         event.preventDefault();
         var nameinput=$('#artist-name').val();
-        var token='BQDp-_YQ0EYYwgrD9s-O2Mbu3aSOicrItWXtywqtXV1k0pwAcJAJlOE466UIRj-0LhQeNRvENqdOYHyvnwa6mcfrOBGh5XutXOhNl-Kd4ZwBarAsEAn0914iYUbBQrDT94OV2JyWsGaB8eWYCWVelw';
+        var token='BQAiVTM9DW13pZI5YjdomN_qdnww7a65Y5DWVzCvuJl2uTdaL5Ydy3gCACPYmP4dqnlsWmnqE_nNDgRFCBQUCeuE0ZJSUZChnLfUXAnP6TlDna_nm7lM2EGpJDYW-S8h5Jb9TOJstMgxP48CJ6WK9A';
         var queryURL="https://api.spotify.com/v1/search?q="+nameinput+"&type=artist&limit=1";
         console.log(nameinput);
         $.ajax({
@@ -28,7 +30,10 @@ $("#search-track").on('click',function(event){
              },
             method:'GET'
         }).then(function(response){
-        $("#all-display").html("<a href="+response.artists.items[0].external_urls.spotify+">"+nameinput+"</a>");
+            var col_2 = $('<tr><td><a href='+response.artists.items[0].external_urls.spotify+'>'+nameinput+"</a><img src="+response.artists.items[0].images[2].url+"></td></tr>");
+            $("#artist-info").append(col_2);
+            console.log(response)
         })
         })
     
+        response.artists.items[0].images[2].url

@@ -27,28 +27,46 @@
     <table class="table">
       <thead>
         <tr>
-          <th>Albums</th>
-          <th>Lyrics</th>
-          <th>Video</th>
+          <th>Tracks</th>
         </tr>
       </thead>
-      <tbody id="all-display">
+      <tbody id="tracks">
       </tbody>
     </table>
+    <table class="table">
+        <thead>
+          <tr>
+            <th>Artist Info</th>
+          </tr>
+        </thead>
+        <tbody id="artist-info">
+        </tbody>
+      </table>
+      <table class="table">
+          <thead>
+            <tr>
+              <th>Lyrics</th>
+            </tr>
+          </thead>
+          <tbody id="lyrics">
+          </tbody>
+        </table>
     <div class="row">
       <div class="col-lg-12">
         <div class="panel panel-default">
           <div class="panel-heading">
-            <h3 class="panel-title">Add Artist Name</h3>
+            <h3 class="panel-title">Add Artist or Track Name</h3>
           </div>
           <div class="panel-body">
             <form>
               <div class="form-group">
+                <label for="track-name">Track Name</label>
+                <input class="form-control" id="track-name" type="text">
+                <input id="search-track" type="submit" value="Search Track">
+                <div class="form-group">
                 <label for="artist-name">Artist Name</label>
                 <input class="form-control" id="artist-name" type="text">
                 <input id="search-artist" type="submit" value="Search Artist">
-                <input class="form-control" id="track-name" type="text">
-                <input id="search-track" type="submit" value="Search Track">
               </div>
             </form>
     </div>
