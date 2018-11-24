@@ -7,112 +7,78 @@ var config = {
     messagingSenderId: "833719412698"
 };
 firebase.initializeApp(config);
-
+///////////////////////////////
 
 var database = firebase.database();
-
-var toptopclicks = "";
 var topclicks = [];
-rndarray = [2, 7, 4, 7, 3, 2, 2, 6, 7, 8, 5, 4, 3];
+//////////////////////////
+function jsUcfirst(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+}
 
+function rev(a, b) {
 
+    return b
+}
 
+function cap(str) {
+    str = str.split(" ");
+    for (var i = 0, x = str.length; i < x; i++) {
+        str[i] = str[i][0].toUpperCase() + str[i].substr(1);
+    }
+    return str.join(" ");
+}
 
+function getitems(array) {
+    $(".topTrending").empty()
+
+    for (var i = 0; i < 5; i++) {
+
+        $(".topTrending").append("<li>" + array[i][1] + "</li>")
+    }
+}
+/////////////////////////////////
 $("#submit").on("click", function (event) {
     event.preventDefault();
-
     var search = $("#search").val().trim();
-
-
+    search = cap(search);
     var onclicks = 1;
-
     database.ref().once("value", function (snap) {
         object = snap.val();
         console.log("i");
-
-
         if (snap.hasChild(search)) {
-
             var child = (object[search].clicks)
             console.log(child);
             console.log("hi")
-
             database.ref(search).child("clicks").transaction(function (currentClicks) {
-
                 return (currentClicks || 0) + 1
-
-
             })
-
         } else {
             console.log("na")
-
             database.ref(search).set({
-
-
                 search: search,
                 clicks: onclicks
             })
-
         }
-
-
-
     })
-
 })
-
 database.ref().on("value", function (snapshot) {
-
+    topclicks = [];
     snapshot.forEach(function (snap) {
         object = snap.val();
-        toptopclicks = topclicks.concat([object.clicks, object.search])
-        var array = toptopclicks.sort(function (a, b) {
-            return a[0] - b[0];
-        });
-
-        console.log(array);
+        topclicks.push([object.clicks, object.search])
     });
+    topclicks.sort(function (a, b) {
+        return b[0] - a[0];
+    });
+    getitems(topclicks[0][1]);
+
+    function getitems() {
+        $(".topTrending").empty()
+        for (var i = 0; i < 5; i++) {
+
+            $(".topTrending").append("<li>" + topclicks[i][1] + "</li>")
+        }
+    }
 })
-
-
-function sort(a, b) {
-
-    return a[0] - b[0];
-
-}
-console.log(toptopclicks)
-
-$(".check").html(topclicks[0]);
-
-
-
-var proper = rndarray.sort(function (a, b) {
-    return a - b;
-});
-console.log(proper);
-// sort by name
-
-/* snapshot.forEach(function (childsnap) {
-
-
-
-     var child = childsnap.val();
-
-     console.log(child);
-
-
-
- })*/
-
-
-
-/*snap.forEach(function (childsnap) {
-
-            objectsnap = childsnap.val();
-            if (search === objectsnap.search) {
-
-            } else {
-
-            }
-        })*/
+/////////////////////////
