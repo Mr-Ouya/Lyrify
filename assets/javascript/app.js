@@ -1,7 +1,7 @@
 $("#search-track").on('click',function(event){
     event.preventDefault();
     var nameinput=$('#track-name').val();
-    var token='BQDYoL_R6VY-lxUgr0hvdptTsIbx2zC5c7l6Tg74xcsBN8DXQa57WfrdG37A03TMCXhKsR9StJKSdsXnJ6wmRTO89UiB6_h0yJ18vIcOFvF97XtCJnU_QUg5hQbGw69kovybRZIGJ5Tpht092uSFIQ';
+    var token='BQAoSpdg05trL7hz8w26tQ-t8aZ1IgekYJusVqsFg1886p5BrHV-JW2UQLbu4CpjePtvsdKxj-fIosi0wYPL_O8uroBdBr6P7Cf_NFvvG0v2cdlSXQGj-5zxXvp7v_OEGIlnudKr_LkYYxfNdHiCeA';
     var queryURL="https://api.spotify.com/v1/search?q="+nameinput+"&type=track&limit=1";
     console.log(nameinput);
     $.ajax({
@@ -12,8 +12,8 @@ $("#search-track").on('click',function(event){
         method:'GET'
     }).then(function(response){
         var col_1 =  $(' <tr><td>' + "<audio controls><source src=" 
-            + response.tracks.items[0].preview_url+" type='audio/mpeg'>" +
-            + "</audio><img src="+ response.tracks.items[0].album.images[1].url + ">" 
+            + response.tracks.items[0].preview_url+" type='audio/mpeg'>" + '<div></div>'
+            + "</audio>" + "<img src="+ response.tracks.items[0].album.images[1].url + ">" 
             + "<div id= 'trackname'>" + response.tracks.items[0].name + "</div>" + "<div id= 'artistname'>" 
             + response.tracks.items[0].album.artists[0].name + "</div>" + "</td></tr>");
         $("#tracks").append(col_1);
@@ -24,7 +24,7 @@ $("#search-track").on('click',function(event){
     $("#search-artist").on('click',function(event){
         event.preventDefault();
         var nameinput=$('#artist-name').val();
-        var token='BQDYoL_R6VY-lxUgr0hvdptTsIbx2zC5c7l6Tg74xcsBN8DXQa57WfrdG37A03TMCXhKsR9StJKSdsXnJ6wmRTO89UiB6_h0yJ18vIcOFvF97XtCJnU_QUg5hQbGw69kovybRZIGJ5Tpht092uSFIQ';
+        var token='BQAoSpdg05trL7hz8w26tQ-t8aZ1IgekYJusVqsFg1886p5BrHV-JW2UQLbu4CpjePtvsdKxj-fIosi0wYPL_O8uroBdBr6P7Cf_NFvvG0v2cdlSXQGj-5zxXvp7v_OEGIlnudKr_LkYYxfNdHiCeA';
         var queryURL="https://api.spotify.com/v1/search?q="+nameinput+"&type=artist&limit=1";
         console.log(nameinput);
         $.ajax({
