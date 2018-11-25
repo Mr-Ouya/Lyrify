@@ -35,7 +35,7 @@ $("#search-track").on('click',function(event){
             method:'GET'
         }).then(function(response){
             var col_2 = $(
-                '<tr><td><a id= "profilelink" href=' + response.artists.items[0].external_urls.spotify+'>Click here for artist profile!</a>' + '<div></div>'
+                '<tr><td><a id= "profilelink" href=' + response.artists.items[0].external_urls.spotify+'>Click here for artist profile and albums!</a>' + '<div></div>'
                  + "<img src=" + response.artists.items[0].images[1].url +" />"
                  + "<div id= 'personname'>" + response.artists.items[0].name + "</div>" + "</td></tr>");
             $("#artist-info").append(col_2);
@@ -43,4 +43,29 @@ $("#search-track").on('click',function(event){
         })
         })
 
-        //"<div id= 'personname'>" + response.artists.items[0].name + "</div>" 
+        function getDataFromApi(artist, title, callback) {
+            let URL = `https://api.lyrics.ovh/v1/${artist}/${title}`;
+            $.getJSON(URL, callback);
+            console.log(URL);
+          }
+          
+          function displaySearchData(data) {
+            console.log(data);
+            $(".js-search-results").html(`${data.lyrics}`);
+          }
+          
+          function watchSubmit() {
+            $('.js-search-form').submit(event => {
+              event.preventDefault();
+              let artistTarget = $(event.currentTarget).find('.js-query-artist');
+              let titleTarget = $(event.currentTarget).find('.js-query-title');
+              let artist = artistTarget.val();
+              let title = titleTarget.val();
+              artistTarget.val("");
+              titleTarget.val("");
+              
+              getDataFromApi(artist, title, displaySearchData);
+            });
+          }
+          
+          $(watchSubmit);
