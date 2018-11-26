@@ -4,7 +4,7 @@ event.preventDefault();
  var artistnameinput=$('#artistname-input').val();
 
  //token is like an API key
-var token='BQAHOw2kY3dgthCsPfH0nnDR6cWzFZtUbpAYNYa-57OuUKu6ZP0Y-e_HRrRweAg3KSVmyWHqZLQ3wtOfkEpvaT7X0QZUCZb6fumBbEa3YPmvKpwnZfcyXEPb6AZCcShuWMxcJmL8Dd9xYwcf1dOAjDpyGwBmjjIygqh4ig';
+var token='BQDMsr1gP_o6R780XjrIaazujsZjVsv_-GeArIhVNITlJyll1v_PxC777MSQNTrEbfzbfKjND5jbaI6srYtUEdPlMy00WB-sYj1fUILrq_O1wuKOiZYxI0MKykfeoETQ13yK0a5LnmMRjiX1V1PhumdWgMUYdnm_9dS4Qw';
  //queryURL which can get the track
 var queryURL = "https://api.spotify.com/v1/search?q=";
 if(tracknameinput){
@@ -15,7 +15,6 @@ if(artistnameinput){
 }
 queryURL += "&type=track&limit=1";
 console.log(queryURL);
-// var queryURL="https://api.spotify.com/v1/search?q=+"%20artist:"+artistnameinput+"&type=track&limit=1";
  console.log(tracknameinput);
  console.log(artistnameinput);
  $.ajax({
