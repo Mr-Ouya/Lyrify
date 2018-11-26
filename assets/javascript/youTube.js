@@ -1,3 +1,4 @@
+//Youtube API functionality
 $(document).ready(function () { 
 	// This function gets the data from the YouTube API and displays it on the page
 	function getResults(searchTerm) {
@@ -6,7 +7,7 @@ $(document).ready(function () {
 				"part": "snippet",
 				"key": "AIzaSyBkK8PEuhSfyz05gnUWhwOuE5cqWV5Oa3A",
 				"q": searchTerm,
-				"maxResults": 10
+				"maxResults": 1
 			},
 			function (data) {
 				if (data.pageInfo.totalResults == 0) {
@@ -28,13 +29,15 @@ $(document).ready(function () {
 			html = html + "<li><p class='line-clamp'>" + video.snippet.title +
 				"</p><a target='_blank' href='https://www.youtube.com/watch?v=" + video.id.videoId + "'><img src='" +  video.snippet.thumbnails.high.url + "'/></a></li>" ;
 		});
-		$("#search-results").html(html);
+		$("#music-video").html(html);
 	}
 
 	//Use search track
 	$("#search-track").on('click',function(event){
-		event.preventDefault();
-		getResults($("#track-name").val());
+    event.preventDefault();
+    var sum=$("#track-name").val()+ " " + $("#artist-name").val();
+    getResults(sum);
+    console.log(sum);
 	});
 	//Use search artist
 	$("#search-artist").on('click',function(event){
@@ -43,9 +46,11 @@ $(document).ready(function () {
 	});
 });
         
-    
-    
 
+
+    
+    
+//SPOTIFY API
 $("#search-track").on('click',function(event){
     event.preventDefault();
     var nameinput=$('#track-name').val();
@@ -91,6 +96,12 @@ $("#search-track").on('click',function(event){
         })
         })
 
+
+
+        //Lyrics API
+        
+        //Not sure if I need this shit below
+        /*
         function getDataFromApi(artist, title, callback) {
             let URL = `https://api.lyrics.ovh/v1/${artist}/${title}`;
             $.getJSON(URL, callback);
@@ -98,7 +109,7 @@ $("#search-track").on('click',function(event){
           }
           
           function displaySearchData(data) {
-            console.log(data);
+            //console.log(data);
             $(".js-search-results").html(`${data.lyrics}`);
           }
           
@@ -117,19 +128,19 @@ $("#search-track").on('click',function(event){
           }
           
           $(watchSubmit);
-
-          //Code for lyric api
+          */
+          
 
           $('#submit').on('click', function() {
             var artist = $('#artist-input').val();
             var song = $('#song-input').val();
             
               $.getJSON('https://api.lyrics.ovh/v1/' + artist + '/' + song + '', function(data) {
-                console.log(data);
+                //console.log(data);
           
                 $.each(data, function(i, val) {
                   var lyrics = data.lyrics;
-                  console.log(lyrics);
+                  //console.log(lyrics);
                   $('#output').html('<h2 class="artist-output">' + artist + '</h2><h3 class="song-output">' + song + '</h3><p class="lyrics-output">' + lyrics + '</p>').css({
                     'border-top' : '1px solid black'
                   });
@@ -138,10 +149,6 @@ $("#search-track").on('click',function(event){
           });
           
           
-          $('#reset').on('click', function() {
-            $('.search-input input').val('');
-            $('#output').html('').css({
-              'border-top' : '0'
-            });
-          });
+        
+          
 
