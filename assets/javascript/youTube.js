@@ -48,9 +48,11 @@ $(document).ready(function () {
         
 
 
-    
-    
+//FUCK TOKENS
+
 //SPOTIFY API
+
+/*
 $("#search-track").on('click',function(event){
     event.preventDefault();
     var nameinput=$('#track-name').val();
@@ -95,7 +97,7 @@ $("#search-track").on('click',function(event){
             //console.log(response)
         })
         })
-
+        */
 
 
         //Lyrics API
@@ -131,9 +133,9 @@ $("#search-track").on('click',function(event){
           */
           
 
-          $('#submit').on('click', function() {
-            var artist = $('#artist-input').val();
-            var song = $('#song-input').val();
+          $('.submit-button').on('click', function() {
+            var artist = $('#artist-name').val();
+            var song = $('#track-name').val();
             
               $.getJSON('https://api.lyrics.ovh/v1/' + artist + '/' + song + '', function(data) {
                 //console.log(data);
@@ -141,14 +143,9 @@ $("#search-track").on('click',function(event){
                 $.each(data, function(i, val) {
                   var lyrics = data.lyrics;
                   //console.log(lyrics);
-                  $('#output').html('<h2 class="artist-output">' + artist + '</h2><h3 class="song-output">' + song + '</h3><p class="lyrics-output">' + lyrics + '</p>').css({
+                  $('#lyrics').html('<h2 class="artist-output">' + artist + '</h2><h3 class="song-output">' + song + '</h3><p class="lyrics-output">' + lyrics + '</p>').css({
                     'border-top' : '1px solid black'
                   });
                 });
             });
           });
-          
-          
-        
-          
-
