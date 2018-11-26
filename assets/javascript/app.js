@@ -42,7 +42,7 @@ $("#search-track").on('click',function(event){
           console.log(response)
       })
       })
-
+/*
       function getDataFromApi(artist, title, callback) {
           let URL = `https://api.lyrics.ovh/v1/${artist}/${title}`;
           $.getJSON(URL, callback);
@@ -69,3 +69,4 @@ $("#search-track").on('click',function(event){
         }
         
         $(watchSubmit);
+        */
