@@ -2,10 +2,18 @@ $("#search-artist").on('click',function(event){
     event.preventDefault();
 
     watchSubmit();
-    var nameinput=$('#track-name').val();
-    var token='BQAsRw4IDJ6iMrN7DnzmZ3_nYMDXlWHvQOKOcTDfJrbb2FAnr-Rv3cqRiOL6SIa_kcKT6gMIiZA2oHShGhMURQIhFOqRZvy-EsTylxZ8xKvYy7dbVDgLyOCIWTnFDnLQ4EdyoCCsHwcI5XK85sz8Pw';
-    var queryURL="https://api.spotify.com/v1/search?q="+nameinput+"&type=track&limit=1";
-    console.log(nameinput);
+    var tracknameinput=$('#track-name').val();
+    var artistnameinput=$('#artist-name').val();
+    var token='BQAsRw4IDJ6iMrN7DnzmZ3_nYMDXlWHvQOKOcTDfJrbb2FAnr-Rv3cqRiOL6SIa_kcKT6gMIiZA2oHShGhMURQIhFOqRZvy-EsTylxZ8xKvYy7dbVDgLyOCIWTnFDnLQ4EdyoCCsHwcI5XK85sz8Pw````';
+    var queryURL="https://api.spotify.com/v1/search?q=";
+    if(tracknameinput){
+        queryURL +=" track:"+tracknameinput;
+    }
+    if(artistnameinput){
+        queryURL +=" artist:"+artistnameinput;
+    };
+    queryURL += "&type=track&limit=1";
+    console.log(artistnameinput);
     $.ajax({
         url:queryURL,
         headers: {
@@ -28,10 +36,10 @@ $("#search-artist").on('click',function(event){
 
         watchSubmit();
 
-        var nameinput=$('#artist-name').val();
+        var artistnameinput=$('#artist-name').val();
         var token='BQAsRw4IDJ6iMrN7DnzmZ3_nYMDXlWHvQOKOcTDfJrbb2FAnr-Rv3cqRiOL6SIa_kcKT6gMIiZA2oHShGhMURQIhFOqRZvy-EsTylxZ8xKvYy7dbVDgLyOCIWTnFDnLQ4EdyoCCsHwcI5XK85sz8Pw';
-        var queryURL="https://api.spotify.com/v1/search?q="+nameinput+"&type=artist&limit=1";
-        console.log(nameinput);
+        var queryURL="https://api.spotify.com/v1/search?q="+artistnameinput+"&type=artist&limit=1";
+        console.log(artistnameinput);
         $.ajax({
             url:queryURL,
             headers: {
@@ -112,3 +120,5 @@ $("#search-artist").on('click',function(event){
            console.log(sum);
          });
         });
+
+        
