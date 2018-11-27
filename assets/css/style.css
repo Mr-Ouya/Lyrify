@@ -2,5 +2,26 @@
 
     height: 200px;
     width: 200px;
+}
 
+#trackname {
+    color: blue;
+    font-size: 30px;
+    font-weight: bold;
+}
+
+#artistname {
+    color: red;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+#personname {
+    color: red;
+    font-size: 30px;
+    font-weight: bold;
+}
+
+#profilelink {
+    font-size: 15px;
 }
