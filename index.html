@@ -49,6 +49,15 @@
             </tr>
           </thead>
           <tbody id="lyrics">
+        <table class="table">
+          <thead>
+              <tr>
+                <th>Videos</th>
+              </tr>
+          </thead>
+          <tbody id="videos">
+          <table class="table">
+              </tbody>
           </tbody>
         </table>
     <div class="row">
@@ -62,26 +71,12 @@
               <div class="form-group">
                 <label for="track-name">Track Name</label>
                 <input class="form-control" id="track-name" type="text">
-                <input id="search-track" type="submit" value="Search Track">
                 <div class="form-group">
                 <label for="artist-name">Artist Name</label>
                 <input class="form-control" id="artist-name" type="text">
-                <input id="search-artist" type="submit" value="Search Artist">
+                <input id="search-artist" type="submit" value="Search">
               </div>
-            </form>
-        <h1>Song Lyrics</h1>
-        <form action="#" class="js-search-form" role="form">
-        <span>Artist:</span>
-        <input type="text" class="js-query-artist" placeholder="Queen">
-        <span>Song title:</span>
-        <input type="text" class="js-query-title" placeholder="Under Pressure">
-        <button type="submit" role="button">Search</button>
-    </form>
-    <div class="js-search-results" role="container">
-            
-    </div>
-    </div>
-
+            </form>  
   </div>
   <script src="https://www.gstatic.com/firebasejs/5.5.8/firebase.js"></script>
   <script src="assets/javascript/app.js"></script>

@@ -1,7 +1,9 @@
-$("#search-track").on('click',function(event){
+$("#search-artist").on('click',function(event){
     event.preventDefault();
+
+    watchSubmit();
     var nameinput=$('#track-name').val();
-    var token='BQAoSpdg05trL7hz8w26tQ-t8aZ1IgekYJusVqsFg1886p5BrHV-JW2UQLbu4CpjePtvsdKxj-fIosi0wYPL_O8uroBdBr6P7Cf_NFvvG0v2cdlSXQGj-5zxXvp7v_OEGIlnudKr_LkYYxfNdHiCeA';
+    var token='BQAsRw4IDJ6iMrN7DnzmZ3_nYMDXlWHvQOKOcTDfJrbb2FAnr-Rv3cqRiOL6SIa_kcKT6gMIiZA2oHShGhMURQIhFOqRZvy-EsTylxZ8xKvYy7dbVDgLyOCIWTnFDnLQ4EdyoCCsHwcI5XK85sz8Pw';
     var queryURL="https://api.spotify.com/v1/search?q="+nameinput+"&type=track&limit=1";
     console.log(nameinput);
     $.ajax({
@@ -23,8 +25,11 @@ $("#search-track").on('click',function(event){
 
     $("#search-artist").on('click',function(event){
         event.preventDefault();
+
+        watchSubmit();
+
         var nameinput=$('#artist-name').val();
-        var token='BQAoSpdg05trL7hz8w26tQ-t8aZ1IgekYJusVqsFg1886p5BrHV-JW2UQLbu4CpjePtvsdKxj-fIosi0wYPL_O8uroBdBr6P7Cf_NFvvG0v2cdlSXQGj-5zxXvp7v_OEGIlnudKr_LkYYxfNdHiCeA';
+        var token='BQAsRw4IDJ6iMrN7DnzmZ3_nYMDXlWHvQOKOcTDfJrbb2FAnr-Rv3cqRiOL6SIa_kcKT6gMIiZA2oHShGhMURQIhFOqRZvy-EsTylxZ8xKvYy7dbVDgLyOCIWTnFDnLQ4EdyoCCsHwcI5XK85sz8Pw';
         var queryURL="https://api.spotify.com/v1/search?q="+nameinput+"&type=artist&limit=1";
         console.log(nameinput);
         $.ajax({
@@ -51,21 +56,59 @@ $("#search-track").on('click',function(event){
           
           function displaySearchData(data) {
             console.log(data);
-            $(".js-search-results").html(`${data.lyrics}`);
+            $("#lyrics").html(`${data.lyrics}`);
           }
           
           function watchSubmit() {
-            $('.js-search-form').submit(event => {
-              event.preventDefault();
-              let artistTarget = $(event.currentTarget).find('.js-query-artist');
-              let titleTarget = $(event.currentTarget).find('.js-query-title');
+              let artistTarget = $('#artist-name');
+              let titleTarget = $('#track-name');
               let artist = artistTarget.val();
               let title = titleTarget.val();
-              artistTarget.val("");
-              titleTarget.val("");
+              
               
               getDataFromApi(artist, title, displaySearchData);
-            });
           }
-          
-          $(watchSubmit);
+
+          $(document).ready(function () {
+            // This function gets the data from the YouTube API and displays it on the page
+            function getResults(searchTerm) {
+                $.getJSON("https://www.googleapis.com/youtube/v3/search",
+                    {
+                        "part": "snippet",
+                        "key": "AIzaSyBkK8PEuhSfyz05gnUWhwOuE5cqWV5Oa3A",
+                        "q": searchTerm,
+                        "maxResults": 1
+                    },
+                    function (data) {
+                        if (data.pageInfo.totalResults == 0) {
+                            alert("No results!");
+                        }
+                        // If no results, empty the list
+               displayResults(data.items);
+               console.log(data);
+                    }
+                );
+            }
+        
+            //Display results in ul
+            function displayResults(videos) {
+                var html = "";
+                $.each(videos, function (index, video) {
+                    // Append results li to ul
+                    //console.log(video.snippet.title);
+                    //console.log(video.snippet.thumbnails.high.url);
+                    html = html +
+                        "</p><iframe width='600' hieght='600' src='https://www.youtube.com/embed/watch" + video.id.videoId + "'></iframe></a></li>" ;
+                });
+                $("#videos").html(html);
+            }
+        
+            //Use search track
+            $("#search-artist").on('click',function(event){
+           event.preventDefault();
+           watchSubmit()
+           var sum=$("#track-name").val()+ " " + $("#artist-name").val();
+           getResults(sum);
+           console.log(sum);
+         });
+        });
