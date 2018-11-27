@@ -139,9 +139,18 @@ $("#search-track").on('click',function(event){
           
           
           $('.submit-button').on('click', function() {
+            
             var artist = $('#artist-name').val();
             var song = $('#track-name').val();
-            
+            if (artist.length < 1)
+    {
+        window.alert("Artist value needed for lyrics");
+        return false;
+    } else if (song.length < 1) {
+    window.alert("Song value needed for lyrics");
+    return false;
+    }
+
               $.getJSON('https://api.lyrics.ovh/v1/' + artist + '/' + song + '', function(data) {
                 //console.log(data);
           
