@@ -25,3 +25,49 @@
 #profilelink {
     font-size: 15px;
 }
+
+.subheader {
+
+    color: black;
+    font-size: 20px;
+}
+
+.topTrendingArtist,
+.topTrendingTracks {
+
+    text-align: center;
+
+}
+
+h3 {
+
+    text-align: center;
+    padding-right: auto;
+    padding-left: auto;
+    font-size: 30px;
+
+}
+
+ol {
+    text-decoration: none;
+    padding-right: 40px;
+}
+
+li {
+    width: 100px;
+    margin: auto;
+}
+
+#search-artist {
+
+    background-color: whitesmoke;
+    transition-duration: 0.4s;
+    font-size: 15px;
+    margin-top: 15px;
+}
+
+#search-artist:hover {
+
+    background-color: hsl(0, 100%, 50%);
+    color: white;
+}
