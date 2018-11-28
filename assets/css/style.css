@@ -5,17 +5,42 @@
 }
 
 #artistname{
-    color:red;
+    color:purple;
     font-size: 15px;
     font-weight: bold;
 }
 
 #personname{
-    color:red;
+    color:purple;
     font-size: 30px;
     font-weight: bold;
 }
 
 #profilelink{
     font-size: 15px;
+}
+
+body {
+    background-image: url("https://media.giphy.com/media/2qKpBa5nMVPUc/giphy.gif");
+}
+
+.table{
+    font-size: 15px;
+}
+
+.jumbotron{
+    font-family: cursive;
+    font-weight: bolder;
+}
+
+#lyrics{
+    font-weight: bold;
+}
+
+#profilelink{
+    font-weight: bold;
+}
+
+tr{
+    font-size: 30px;
 }

@@ -4,7 +4,7 @@ $("#search-artist").on('click',function(event){
     watchSubmit();
     var tracknameinput=$('#track-name').val();
     var artistnameinput=$('#artist-name').val();
-    var token='BQAsRw4IDJ6iMrN7DnzmZ3_nYMDXlWHvQOKOcTDfJrbb2FAnr-Rv3cqRiOL6SIa_kcKT6gMIiZA2oHShGhMURQIhFOqRZvy-EsTylxZ8xKvYy7dbVDgLyOCIWTnFDnLQ4EdyoCCsHwcI5XK85sz8Pw````';
+    var token='BQAdylmGvF9SrmtHcz7wAcTpBT3Laea127xMuozvGcSDW9q4NQMOwdgnuMtMsQQaTyfqXQvqXnL-Ah8sStDF1dUzganaqN9y1KT-1EQ4IenGUnz6zTM61JK_IMQF-Oi_t0pQMF2CXtykOzDUoYmXFw';
     var queryURL="https://api.spotify.com/v1/search?q=";
     if(tracknameinput){
         queryURL +=" track:"+tracknameinput;
@@ -37,7 +37,7 @@ $("#search-artist").on('click',function(event){
         watchSubmit();
 
         var artistnameinput=$('#artist-name').val();
-        var token='BQAsRw4IDJ6iMrN7DnzmZ3_nYMDXlWHvQOKOcTDfJrbb2FAnr-Rv3cqRiOL6SIa_kcKT6gMIiZA2oHShGhMURQIhFOqRZvy-EsTylxZ8xKvYy7dbVDgLyOCIWTnFDnLQ4EdyoCCsHwcI5XK85sz8Pw';
+        var token='BQAdylmGvF9SrmtHcz7wAcTpBT3Laea127xMuozvGcSDW9q4NQMOwdgnuMtMsQQaTyfqXQvqXnL-Ah8sStDF1dUzganaqN9y1KT-1EQ4IenGUnz6zTM61JK_IMQF-Oi_t0pQMF2CXtykOzDUoYmXFw';
         var queryURL="https://api.spotify.com/v1/search?q="+artistnameinput+"&type=artist&limit=1";
         console.log(artistnameinput);
         $.ajax({
@@ -106,8 +106,10 @@ $("#search-artist").on('click',function(event){
                     //console.log(video.snippet.title);
                     //console.log(video.snippet.thumbnails.high.url);
                     html = html +
-                        "</p><iframe width='600' hieght='600' src='https://www.youtube.com/embed/watch" + video.id.videoId + "'></iframe></a></li>" ;
+                    //"</p><iframe src='https://www.youtube.com/embed/QGmyE1SAR40" + "'></iframe></a></li>" ;
+                    "</p><iframe src='https://www.youtube.com/embed/" + video.id.videoId + "'></iframe></a></li>" ;
                 });
+                console.log(html)
                 $("#videos").html(html);
             }
         
@@ -118,6 +120,8 @@ $("#search-artist").on('click',function(event){
            var sum=$("#track-name").val()+ " " + $("#artist-name").val();
            getResults(sum);
            console.log(sum);
+           getResults(sum);
+           console.log()
          });
         });
 
