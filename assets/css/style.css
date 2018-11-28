@@ -50,11 +50,13 @@ h3 {
 
 ol {
     text-decoration: none;
-    padding-right: 40px;
+    padding-right: 0;
+    font-size: 15px;
+    padding-left: 0;
 }
 
 li {
-    width: 100px;
+    width: auto;
     margin: auto;
 }
 

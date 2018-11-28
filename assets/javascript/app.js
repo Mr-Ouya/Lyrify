@@ -251,7 +251,7 @@ $(document).ready(function () {
             //console.log(video.snippet.title);
             //console.log(video.snippet.thumbnails.high.url);
             html = html +
-                "</p><iframe width='600' hieght='600' src='https://www.youtube.com/embed/watch" + video.id.videoId + "'></iframe></a></li>";
+                "</p><iframe width='600' hieght='600' src='https://www.youtube.com/embed/" + video.id.videoId + "'></iframe></a></li>";
         });
         $("#videos").html(html);
     }
