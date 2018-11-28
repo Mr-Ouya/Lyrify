@@ -4,7 +4,7 @@ $("#search-artist").on('click',function(event){
     watchSubmit();
     var tracknameinput=$('#track-name').val();
     var artistnameinput=$('#artist-name').val();
-    var token='BQAdylmGvF9SrmtHcz7wAcTpBT3Laea127xMuozvGcSDW9q4NQMOwdgnuMtMsQQaTyfqXQvqXnL-Ah8sStDF1dUzganaqN9y1KT-1EQ4IenGUnz6zTM61JK_IMQF-Oi_t0pQMF2CXtykOzDUoYmXFw';
+    var token='BQBJb5L28u-HQ9DtEalrsL2nT1qylUpxbCyl-IPp35dPBYyhAVRlxw7GW3whkSD3kRT2z_EzYkWCIz1gg_74kUrZCKO3Kjjl4moyLAm0vPPjvgMtMq8pCFW12okQrlgW73-ncB8VI_0RhceLzAsTLQ';
     var queryURL="https://api.spotify.com/v1/search?q=";
     if(tracknameinput){
         queryURL +=" track:"+tracknameinput;
@@ -37,7 +37,7 @@ $("#search-artist").on('click',function(event){
         watchSubmit();
 
         var artistnameinput=$('#artist-name').val();
-        var token='BQAdylmGvF9SrmtHcz7wAcTpBT3Laea127xMuozvGcSDW9q4NQMOwdgnuMtMsQQaTyfqXQvqXnL-Ah8sStDF1dUzganaqN9y1KT-1EQ4IenGUnz6zTM61JK_IMQF-Oi_t0pQMF2CXtykOzDUoYmXFw';
+        var token='BQBJb5L28u-HQ9DtEalrsL2nT1qylUpxbCyl-IPp35dPBYyhAVRlxw7GW3whkSD3kRT2z_EzYkWCIz1gg_74kUrZCKO3Kjjl4moyLAm0vPPjvgMtMq8pCFW12okQrlgW73-ncB8VI_0RhceLzAsTLQ';
         var queryURL="https://api.spotify.com/v1/search?q="+artistnameinput+"&type=artist&limit=1";
         console.log(artistnameinput);
         $.ajax({
@@ -107,7 +107,7 @@ $("#search-artist").on('click',function(event){
                     //console.log(video.snippet.thumbnails.high.url);
                     html = html +
                     //"</p><iframe src='https://www.youtube.com/embed/QGmyE1SAR40" + "'></iframe></a></li>" ;
-                    "</p><iframe src='https://www.youtube.com/embed/" + video.id.videoId + "'></iframe></a></li>" ;
+                    "</p><iframe width='560' height='315' src='https://www.youtube.com/embed/" + video.id.videoId + "' frameborder='0' allow='autoplay; encrypted-media' allowfullscreen></iframe></a></li>" ;
                 });
                 console.log(html)
                 $("#videos").html(html);
