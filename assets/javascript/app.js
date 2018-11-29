@@ -12,6 +12,7 @@ var database = firebase.database();
 var topArtist = [];
 var topTrack = [];
 //////////////////////////
+
 function jsUcfirst(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
 }
@@ -19,6 +20,7 @@ function rev(a, b) {
     return b
 }
 //Makes First letter of each word uppercase
+
 function cap(str) {
     str = str.split(" ");
     for (var i = 0, x = str.length; i < x; i++) {
@@ -26,9 +28,18 @@ function cap(str) {
     }
     return str.join(" ");
 }
+
 function getitems(array) {
     $(".topTrending").empty()
     for (var i = 0; i < 5; i++) {
+
+
+function getitems(array) {
+    $(".topTrending").empty()
+
+    for (var i = 0; i < 5; i++) {
+
+
         $(".topTrending").append("<li>" + array[i][1] + "</li>")
     }
 }
@@ -42,6 +53,7 @@ $("#search-artist").on("click", function (event) {
     database.ref("/artist/").once("value", function (snap) {
         object = snap.val();
         console.log(object);
+
         if (snap.hasChild(search)) {
             var child = (object.clicks)
             console.log(child);
@@ -59,6 +71,7 @@ $("#search-artist").on("click", function (event) {
     })
 })
 //Saves the search result to firebase and add clicks when button is clicked(track)
+
 $("#search-artist").on("click", function (event) {
     event.preventDefault();
     var search = $("#track-name").val().trim();
@@ -97,31 +110,38 @@ database.ref("/artist/").on("value", function (snapshot) {
         return b[0] - a[0];
     });
     getitems(topArtist[0][1]);
+
     function getitems() {
         $(".topTrendingArtist").empty()
         for (var i = 0; i < 5; i++) {
+
             $(".topTrendingArtist").append("<li>" + topArtist[i][1] + "</li>")
         }
     }
 })
+
 database.ref("/tracks/").on("value", function (snapshot) {
     topTrack = [];
     snapshot.forEach(function (snap) {
         object = snap.val();
+
         topTrack.push([object.clicks, object.search])
     });
     topTrack.sort(function (a, b) {
         return b[0] - a[0];
     });
     getitems(topTrack[0][1]);
+
     function getitems() {
         $(".topTrendingTracks").empty()
         for (var i = 0; i < 5; i++) {
+
             $(".topTrendingTracks").append("<li>" + topTrack[i][1] + "</li>")
             console.log(topTrack[i][1])
         }
     }
 })
+
 
 $("#search-artist").on('click',function(event){
     event.preventDefault();
@@ -139,25 +159,55 @@ $("#search-artist").on('click',function(event){
     };
     queryURL += "&type=track&limit=1";
     console.log(artistnameinput);
+
     $.ajax({
-        url:queryURL,
+        url: queryURL,
         headers: {
-           Authorization: 'Bearer ' + token
-         },
-        method:'GET'
-    }).then(function(response){
-        var col_1 =  $(' <tr><td>' + "<audio controls><source src=" 
-            + response.tracks.items[0].preview_url+" type='audio/mpeg'>" + '<div></div>'
-            + "</audio>" + "<img src="+ response.tracks.items[0].album.images[1].url + ">" 
-            + "<div id= 'trackname'>" + response.tracks.items[0].name + "</div>" + "<div id= 'artistname'>" 
-            + response.tracks.items[0].album.artists[0].name + "</div>" + "</td></tr>");
+            Authorization: 'Bearer ' + token
+        },
+        method: 'GET'
+    }).then(function (response) {
+        var col_1 = $(' <tr><td>' + "<audio controls><source src=" +
+            response.tracks.items[0].preview_url + " type='audio/mpeg'>" + '<div></div>' +
+            "</audio>" + "<img src=" + response.tracks.items[0].album.images[1].url + ">" +
+            "<div id= 'trackname'>" + response.tracks.items[0].name + "</div>" + "<div id= 'artistname'>" +
+            response.tracks.items[0].album.artists[0].name + "</div>" + "</td></tr>");
         $("#tracks").append(col_1);
         console.log(response)
     })
-    })
+})
 
-    $("#search-artist").on('click',function(event){
-        event.preventDefault();
+$("#search-artist").on('click', function (event) {
+    event.preventDefault();
+
+    watchSubmit();
+
+    var nameinput = $('#artist-name').val();
+    var token = 'BQDg6pAWRJXbE49dTPsVyssn1PRSYAW487qUnwkBedmNHNh83fN1cX2hBICE5SQAil09A_6JWFr7QoJqNLITZn7spUwga5v3J6b-tHuVcXF1AmOa35dn2UfpAkEH4WqrBsy1Ep6r9rhPjmxhQx-OKo3YGSdB8VTq6d4u0lRBFrt7-t0heZGXq8KfiVDh';
+    var queryURL = "https://api.spotify.com/v1/search?q=" + nameinput + "&type=artist&limit=1";
+    console.log(nameinput);
+    $.ajax({
+        url: queryURL,
+        headers: {
+            Authorization: 'Bearer ' + token
+        },
+        method: 'GET'
+    }).then(function (response) {
+        var col_2 = $(
+            '<tr><td><a id= "profilelink" href=' + response.artists.items[0].external_urls.spotify + '>Click here for artist profile and albums!</a>' + '<div></div>' +
+            "<img src=" + response.artists.items[0].images[1].url + " />" +
+            "<div id= 'personname'>" + response.artists.items[0].name + "</div>" + "</td></tr>");
+        $("#artist-info").append(col_2);
+        console.log(response)
+    })
+})
+
+function getDataFromApi(artist, title, callback) {
+    let URL = `https://api.lyrics.ovh/v1/${artist}/${title}`;
+    $.getJSON(URL, callback);
+    console.log(URL);
+}
+
 
         watchSubmit();
 
@@ -251,3 +301,4 @@ $("#search-artist").on('click',function(event){
         });
 
         
+
