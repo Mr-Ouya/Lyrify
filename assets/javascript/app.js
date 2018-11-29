@@ -1,10 +1,135 @@
+var config = {
+    apiKey: "AIzaSyCQxC4plKObByXrhWjWJ2sDdrwczemvWEw",
+    authDomain: "search-database-2d445.firebaseapp.com",
+    databaseURL: "https://search-database-2d445.firebaseio.com",
+    projectId: "search-database-2d445",
+    storageBucket: "search-database-2d445.appspot.com",
+    messagingSenderId: "833719412698"
+};
+firebase.initializeApp(config);
+///////////////////////////////
+var database = firebase.database();
+var topArtist = [];
+var topTrack = [];
+//////////////////////////
+function jsUcfirst(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+}
+function rev(a, b) {
+    return b
+}
+//Makes First letter of each word uppercase
+function cap(str) {
+    str = str.split(" ");
+    for (var i = 0, x = str.length; i < x; i++) {
+        str[i] = str[i][0].toUpperCase() + str[i].substr(1);
+    }
+    return str.join(" ");
+}
+function getitems(array) {
+    $(".topTrending").empty()
+    for (var i = 0; i < 5; i++) {
+        $(".topTrending").append("<li>" + array[i][1] + "</li>")
+    }
+}
+/////////////////////////////////
+//Saves the search result to firebase and add clicks when button is clicked(artist)
+$("#search-artist").on("click", function (event) {
+    event.preventDefault();
+    var search = $("#artist-name").val().trim();
+    search = cap(search);
+    var onclicks = 1;
+    database.ref("/artist/").once("value", function (snap) {
+        object = snap.val();
+        console.log(object);
+        if (snap.hasChild(search)) {
+            var child = (object.clicks)
+            console.log(child);
+            console.log("hi")
+            database.ref("/artist/" + search).child("clicks").transaction(function (currentClicks) {
+                return (currentClicks || 0) + 1
+            })
+        } else {
+            console.log("na")
+            database.ref("/artist/" + search).set({
+                search: search,
+                clicks: onclicks
+            })
+        }
+    })
+})
+//Saves the search result to firebase and add clicks when button is clicked(track)
+$("#search-artist").on("click", function (event) {
+    event.preventDefault();
+    var search = $("#track-name").val().trim();
+    search = cap(search);
+    var onclicks = 1;
+    database.ref("/tracks/").once("value", function (snap) {
+        object = snap.val();
+        console.log("i");
+        if (snap.hasChild(search)) {
+            console.log(object);
+            var child = (object.clicks)
+            console.log(child);
+            console.log("hi")
+            database.ref("/tracks/" + search).child("clicks").transaction(function (currentClicks) {
+                return (currentClicks || 0) + 1
+            })
+        } else {
+            console.log("na")
+            database.ref("/tracks/" + search).set({
+                search: search,
+                clicks: onclicks
+            })
+        }
+    })
+})
+//////////////////////////////////////
+//pushes set amount of items from firebase based on clicks and adds them to list also real time
+database.ref("/artist/").on("value", function (snapshot) {
+    topArtist = [];
+    snapshot.forEach(function (snap) {
+        object = snap.val();
+        console.log(object);
+        topArtist.push([object.clicks, object.search])
+    });
+    topArtist.sort(function (a, b) {
+        return b[0] - a[0];
+    });
+    getitems(topArtist[0][1]);
+    function getitems() {
+        $(".topTrendingArtist").empty()
+        for (var i = 0; i < 5; i++) {
+            $(".topTrendingArtist").append("<li>" + topArtist[i][1] + "</li>")
+        }
+    }
+})
+database.ref("/tracks/").on("value", function (snapshot) {
+    topTrack = [];
+    snapshot.forEach(function (snap) {
+        object = snap.val();
+        topTrack.push([object.clicks, object.search])
+    });
+    topTrack.sort(function (a, b) {
+        return b[0] - a[0];
+    });
+    getitems(topTrack[0][1]);
+    function getitems() {
+        $(".topTrendingTracks").empty()
+        for (var i = 0; i < 5; i++) {
+            $(".topTrendingTracks").append("<li>" + topTrack[i][1] + "</li>")
+            console.log(topTrack[i][1])
+        }
+    }
+})
+
 $("#search-artist").on('click',function(event){
     event.preventDefault();
 
     watchSubmit();
     var tracknameinput=$('#track-name').val();
     var artistnameinput=$('#artist-name').val();
-    var token='BQBJb5L28u-HQ9DtEalrsL2nT1qylUpxbCyl-IPp35dPBYyhAVRlxw7GW3whkSD3kRT2z_EzYkWCIz1gg_74kUrZCKO3Kjjl4moyLAm0vPPjvgMtMq8pCFW12okQrlgW73-ncB8VI_0RhceLzAsTLQ';
+    var token='BQA7U0nvzQsuAYyZQLKRHVJA4NzAGCWkT1dCr5Q7oNRwsYS8BDcOM9CuAPJU4wiX05K-rfTLltjvjEi_wv8y_HAug5ypmOhyekPQ-qZEslHCkIQnweVCIgvNu-bgRc-rT1Yu4d2hTX9lc72WEXE0cQ';
     var queryURL="https://api.spotify.com/v1/search?q=";
     if(tracknameinput){
         queryURL +=" track:"+tracknameinput;
@@ -37,7 +162,7 @@ $("#search-artist").on('click',function(event){
         watchSubmit();
 
         var artistnameinput=$('#artist-name').val();
-        var token='BQBJb5L28u-HQ9DtEalrsL2nT1qylUpxbCyl-IPp35dPBYyhAVRlxw7GW3whkSD3kRT2z_EzYkWCIz1gg_74kUrZCKO3Kjjl4moyLAm0vPPjvgMtMq8pCFW12okQrlgW73-ncB8VI_0RhceLzAsTLQ';
+        var token='BQA7U0nvzQsuAYyZQLKRHVJA4NzAGCWkT1dCr5Q7oNRwsYS8BDcOM9CuAPJU4wiX05K-rfTLltjvjEi_wv8y_HAug5ypmOhyekPQ-qZEslHCkIQnweVCIgvNu-bgRc-rT1Yu4d2hTX9lc72WEXE0cQ';
         var queryURL="https://api.spotify.com/v1/search?q="+artistnameinput+"&type=artist&limit=1";
         console.log(artistnameinput);
         $.ajax({
