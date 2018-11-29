@@ -10,14 +10,21 @@
     font-weight: bold;
 }
 
-#artistname {
-    color: red;
+
+#artistname{
+    color:purple;
+
     font-size: 15px;
     font-weight: bold;
 }
 
+
+#personname{
+    color:purple;
+
 #personname {
     color: red;
+
     font-size: 30px;
     font-weight: bold;
 }
@@ -63,11 +70,55 @@ li {
     background-color: whitesmoke;
     transition-duration: 0.4s;
     font-size: 15px;
-    margin-top: 15px;
+
 }
 
-#search-artist:hover {
+body{
+    background-image: url("https://media.giphy.com/media/2qKpBa5nMVPUc/giphy.gif");
+}
 
-    background-color: hsl(0, 100%, 50%);
+.table{
+    font-size: 15px;
+    font-family: cursive;
+}
+
+.jumbotron{
+    font-family: cursive;
+    font-weight: bolder;
+    background-image: url("https://thumbs.gfycat.com/ParchedEminentBustard-small.gif");
+}
+
+#lyrics{
+    font-weight: bold;
+}
+
+#profilelink{
+    font-weight: bold;
+    color: black;
+}
+
+tr{
+    font-size: 30px;
+}
+
+.panel.panel-default{
+    background-image: url("http://38.media.tumblr.com/8cd0b60ef2fe29d3c951e2434ac34954/tumblr_n9l2xnMSi81sjwwzso1_500.gif");
+}
+
+.form-group{
     color: white;
+}
+
+#search-artist{
+    color:black;
+}
+
+#lyrics{
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 20px;
+}
+
+#firebase{
+    color:white;
+
 }

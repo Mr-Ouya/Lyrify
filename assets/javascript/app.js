@@ -13,13 +13,10 @@ var topArtist = [];
 var topTrack = [];
 //////////////////////////
 
-
 function jsUcfirst(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
 }
-
 function rev(a, b) {
-
     return b
 }
 //Makes First letter of each word uppercase
@@ -34,8 +31,14 @@ function cap(str) {
 
 function getitems(array) {
     $(".topTrending").empty()
+    for (var i = 0; i < 5; i++) {
+
+
+function getitems(array) {
+    $(".topTrending").empty()
 
     for (var i = 0; i < 5; i++) {
+
 
         $(".topTrending").append("<li>" + array[i][1] + "</li>")
     }
@@ -140,26 +143,23 @@ database.ref("/tracks/").on("value", function (snapshot) {
 })
 
 
-
-
-
-
-
-
-
-
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
-
-$("#search-artist").on('click', function (event) {
+$("#search-artist").on('click',function(event){
     event.preventDefault();
 
     watchSubmit();
-    var nameinput = $('#track-name').val();
-    var token = 'BQDg6pAWRJXbE49dTPsVyssn1PRSYAW487qUnwkBedmNHNh83fN1cX2hBICE5SQAil09A_6JWFr7QoJqNLITZn7spUwga5v3J6b-tHuVcXF1AmOa35dn2UfpAkEH4WqrBsy1Ep6r9rhPjmxhQx-OKo3YGSdB8VTq6d4u0lRBFrt7-t0heZGXq8KfiVDh';
-    var queryURL = "https://api.spotify.com/v1/search?q=" + nameinput + "&type=track&limit=1";
-    console.log(nameinput);
+    var tracknameinput=$('#track-name').val();
+    var artistnameinput=$('#artist-name').val();
+    var token='BQA7U0nvzQsuAYyZQLKRHVJA4NzAGCWkT1dCr5Q7oNRwsYS8BDcOM9CuAPJU4wiX05K-rfTLltjvjEi_wv8y_HAug5ypmOhyekPQ-qZEslHCkIQnweVCIgvNu-bgRc-rT1Yu4d2hTX9lc72WEXE0cQ';
+    var queryURL="https://api.spotify.com/v1/search?q=";
+    if(tracknameinput){
+        queryURL +=" track:"+tracknameinput;
+    }
+    if(artistnameinput){
+        queryURL +=" artist:"+artistnameinput;
+    };
+    queryURL += "&type=track&limit=1";
+    console.log(artistnameinput);
+
     $.ajax({
         url: queryURL,
         headers: {
@@ -208,60 +208,97 @@ function getDataFromApi(artist, title, callback) {
     console.log(URL);
 }
 
-function displaySearchData(data) {
-    console.log(data);
-    $("#lyrics").html(`${data.lyrics}`);
-}
 
-function watchSubmit() {
-    let artistTarget = $('#artist-name');
-    let titleTarget = $('#track-name');
-    let artist = artistTarget.val();
-    let title = titleTarget.val();
+        watchSubmit();
 
+        var artistnameinput=$('#artist-name').val();
+        var token='BQA7U0nvzQsuAYyZQLKRHVJA4NzAGCWkT1dCr5Q7oNRwsYS8BDcOM9CuAPJU4wiX05K-rfTLltjvjEi_wv8y_HAug5ypmOhyekPQ-qZEslHCkIQnweVCIgvNu-bgRc-rT1Yu4d2hTX9lc72WEXE0cQ';
+        var queryURL="https://api.spotify.com/v1/search?q="+artistnameinput+"&type=artist&limit=1";
+        console.log(artistnameinput);
+        $.ajax({
+            url:queryURL,
+            headers: {
+               Authorization: 'Bearer ' + token
+             },
+            method:'GET'
+        }).then(function(response){
+            var col_2 = $(
+                '<tr><td><a id= "profilelink" href=' + response.artists.items[0].external_urls.spotify+'>Click here for artist profile and albums!</a>' + '<div></div>'
+                 + "<img src=" + response.artists.items[0].images[1].url +" />"
+                 + "<div id= 'personname'>" + response.artists.items[0].name + "</div>" + "</td></tr>");
+            $("#artist-info").append(col_2);
+            console.log(response)
+        })
+        })
 
-    getDataFromApi(artist, title, displaySearchData);
-}
+        function getDataFromApi(artist, title, callback) {
+            let URL = `https://api.lyrics.ovh/v1/${artist}/${title}`;
+            $.getJSON(URL, callback);
+            console.log(URL);
+          }
+          
+          function displaySearchData(data) {
+            console.log(data);
+            $("#lyrics").html(`${data.lyrics}`);
+          }
+          
+          function watchSubmit() {
+              let artistTarget = $('#artist-name');
+              let titleTarget = $('#track-name');
+              let artist = artistTarget.val();
+              let title = titleTarget.val();
+              
+              
+              getDataFromApi(artist, title, displaySearchData);
+          }
 
-$(document).ready(function () {
-    // This function gets the data from the YouTube API and displays it on the page
-    function getResults(searchTerm) {
-        $.getJSON("https://www.googleapis.com/youtube/v3/search", {
-                "part": "snippet",
-                "key": "AIzaSyBkK8PEuhSfyz05gnUWhwOuE5cqWV5Oa3A",
-                "q": searchTerm,
-                "maxResults": 1
-            },
-            function (data) {
-                if (data.pageInfo.totalResults == 0) {
-                    alert("No results!");
-                }
-                // If no results, empty the list
-                displayResults(data.items);
-                console.log(data);
+          $(document).ready(function () {
+            // This function gets the data from the YouTube API and displays it on the page
+            function getResults(searchTerm) {
+                $.getJSON("https://www.googleapis.com/youtube/v3/search",
+                    {
+                        "part": "snippet",
+                        "key": "AIzaSyBkK8PEuhSfyz05gnUWhwOuE5cqWV5Oa3A",
+                        "q": searchTerm,
+                        "maxResults": 1
+                    },
+                    function (data) {
+                        if (data.pageInfo.totalResults == 0) {
+                            alert("No results!");
+                        }
+                        // If no results, empty the list
+               displayResults(data.items);
+               console.log(data);
+                    }
+                );
             }
-        );
-    }
-
-    //Display results in ul
-    function displayResults(videos) {
-        var html = "";
-        $.each(videos, function (index, video) {
-            // Append results li to ul
-            //console.log(video.snippet.title);
-            //console.log(video.snippet.thumbnails.high.url);
-            html = html +
-                "</p><iframe width='600' hieght='600' src='https://www.youtube.com/embed/watch" + video.id.videoId + "'></iframe></a></li>";
+        
+            //Display results in ul
+            function displayResults(videos) {
+                var html = "";
+                $.each(videos, function (index, video) {
+                    // Append results li to ul
+                    //console.log(video.snippet.title);
+                    //console.log(video.snippet.thumbnails.high.url);
+                    html = html +
+                    //"</p><iframe src='https://www.youtube.com/embed/QGmyE1SAR40" + "'></iframe></a></li>" ;
+                    "</p><iframe width='560' height='315' src='https://www.youtube.com/embed/" + video.id.videoId + "' frameborder='0' allow='autoplay; encrypted-media' allowfullscreen></iframe></a></li>" ;
+                });
+                console.log(html)
+                $("#videos").html(html);
+            }
+        
+            //Use search track
+            $("#search-artist").on('click',function(event){
+           event.preventDefault();
+           watchSubmit()
+           var sum=$("#track-name").val()+ " " + $("#artist-name").val();
+           getResults(sum);
+           console.log(sum);
+           getResults(sum);
+           console.log()
+         });
         });
-        $("#videos").html(html);
-    }
 
-    //Use search track
-    $("#search-artist").on('click', function (event) {
-        event.preventDefault();
-        watchSubmit()
-        var sum = $("#track-name").val() + " " + $("#artist-name").val();
-        getResults(sum);
-        console.log(sum);
-    });
-});
+        
+
