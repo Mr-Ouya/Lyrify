@@ -1,11 +1,80 @@
+var config = {
+    apiKey: "AIzaSyCQxC4plKObByXrhWjWJ2sDdrwczemvWEw",
+    authDomain: "search-database-2d445.firebaseapp.com",
+    databaseURL: "https://search-database-2d445.firebaseio.com",
+    projectId: "search-database-2d445",
+    storageBucket: "search-database-2d445.appspot.com",
+    messagingSenderId: "833719412698"
+};
+firebase.initializeApp(config);
+///////////////////////////////
+var database = firebase.database();
+var topArtist = [];
+var topTrack = [];
+//////////////////////////
+function jsUcfirst(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+}
+function rev(a, b) {
+    return b
+}
+//Makes First letter of each word uppercase
+function cap(str) {
+    str = str.split(" ");
+    for (var i = 0, x = str.length; i < x; i++) {
+        str[i] = str[i][0].toUpperCase() + str[i].substr(1);
+    }
+    return str.join(" ");
+}
+function getitems(array) {
+    $(".topTrending").empty()
+    for (var i = 0; i < 5; i++) {
+        $(".topTrending").append("<li>" + array[i][1] + "</li>")
+    }
+}
+/////////////////////////////////
+//Saves the search result to firebase and add clicks when button is clicked(artist)
+$("#search-artist").on("click", function (event) {
+    event.preventDefault();
+    var search = $("#artist-name").val().trim();
+    search = cap(search);
+    var onclicks = 1;
+    database.ref("/artist/").once("value", function (snap) {
+        object = snap.val();
+        console.log(object);
+        if (snap.hasChild(search)) {
+            var child = (object.clicks)
+            console.log(child);
+            console.log("hi")
+            database.ref("/artist/" + search).child("clicks").transaction(function (currentClicks) {
+                return (currentClicks || 0) + 1
+            })
+        } else {
+            console.log("na")
+            database.ref("/artist/" + search).set({
+                search: search,
+                clicks: onclicks
+            })
+        }
+    })
+})
+//Saves the search result to firebase and add clicks when button is clicked(track)
 $("#search-artist").on('click',function(event){
     event.preventDefault();
 
     watchSubmit();
-    var nameinput=$('#track-name').val();
-    var token='BQAsRw4IDJ6iMrN7DnzmZ3_nYMDXlWHvQOKOcTDfJrbb2FAnr-Rv3cqRiOL6SIa_kcKT6gMIiZA2oHShGhMURQIhFOqRZvy-EsTylxZ8xKvYy7dbVDgLyOCIWTnFDnLQ4EdyoCCsHwcI5XK85sz8Pw';
-    var queryURL="https://api.spotify.com/v1/search?q="+nameinput+"&type=track&limit=1";
-    console.log(nameinput);
+    var tracknameinput=$('#track-name').val();
+    var artistnameinput=$('#artist-name').val();
+    var token='BQDiWfX8wAS3GWM17j4EsAjnNtCPjQnmBk4Kl9fKCFfsDQJ-N4aMrA43XtB7ne3Puh_ImuxBt7I4EmzYCOiNXcECImpvul-jF2hhB8Y4KsVWR3m164AV4UVfQ2fSvkQxtBjH9UkjB6HcDQKaLUyskA';
+    var queryURL="https://api.spotify.com/v1/search?q=";
+    if(tracknameinput){
+        queryURL +=" track:"+tracknameinput;
+    }
+    if(artistnameinput){
+        queryURL +=" artist:"+artistnameinput;
+    };
+    queryURL += "&type=track&limit=1";
+    console.log(artistnameinput);
     $.ajax({
         url:queryURL,
         headers: {
@@ -28,10 +97,10 @@ $("#search-artist").on('click',function(event){
 
         watchSubmit();
 
-        var nameinput=$('#artist-name').val();
-        var token='BQAsRw4IDJ6iMrN7DnzmZ3_nYMDXlWHvQOKOcTDfJrbb2FAnr-Rv3cqRiOL6SIa_kcKT6gMIiZA2oHShGhMURQIhFOqRZvy-EsTylxZ8xKvYy7dbVDgLyOCIWTnFDnLQ4EdyoCCsHwcI5XK85sz8Pw';
-        var queryURL="https://api.spotify.com/v1/search?q="+nameinput+"&type=artist&limit=1";
-        console.log(nameinput);
+        var artistnameinput=$('#artist-name').val();
+        var token='BQDiWfX8wAS3GWM17j4EsAjnNtCPjQnmBk4Kl9fKCFfsDQJ-N4aMrA43XtB7ne3Puh_ImuxBt7I4EmzYCOiNXcECImpvul-jF2hhB8Y4KsVWR3m164AV4UVfQ2fSvkQxtBjH9UkjB6HcDQKaLUyskA';
+        var queryURL="https://api.spotify.com/v1/search?q="+artistnameinput+"&type=artist&limit=1";
+        console.log(artistnameinput);
         $.ajax({
             url:queryURL,
             headers: {
@@ -98,8 +167,10 @@ $("#search-artist").on('click',function(event){
                     //console.log(video.snippet.title);
                     //console.log(video.snippet.thumbnails.high.url);
                     html = html +
-                        "</p><iframe width='600' hieght='600' src='https://www.youtube.com/embed/watch" + video.id.videoId + "'></iframe></a></li>" ;
+                    //"</p><iframe src='https://www.youtube.com/embed/QGmyE1SAR40" + "'></iframe></a></li>" ;
+                    "</p><iframe width='560' height='315' src='https://www.youtube.com/embed/" + video.id.videoId + "' frameborder='0' allow='autoplay; encrypted-media' allowfullscreen></iframe></a></li>" ;
                 });
+                console.log(html)
                 $("#videos").html(html);
             }
         
@@ -110,5 +181,7 @@ $("#search-artist").on('click',function(event){
            var sum=$("#track-name").val()+ " " + $("#artist-name").val();
            getResults(sum);
            console.log(sum);
+           getResults(sum);
+           console.log()
          });
         });
